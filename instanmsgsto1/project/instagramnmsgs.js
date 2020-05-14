@@ -2,6 +2,7 @@ let puppeteer=require("puppeteer")
 let cFile=process.argv[2];
 let fs=require("fs")
 let messageFile=process.argv[3];  
+let idtosendmsgFile=process.argv[4];
 
 (async function(){
     try{
@@ -21,11 +22,10 @@ let messageFile=process.argv[3];
         await page.type("input[type=password]",password,{delay:120});
         await Promise.all([page.click("button[type=submit]"),page.waitForNavigation({waitUntil:"networkidle2"})])
 
-            
-        await page.waitForSelector("._7UhW9.PIoXz.qyrsm.KV-D4.uL8Hv")
-        await page.click("._7UhW9.PIoXz.qyrsm.KV-D4.uL8Hv")     
+        // await page.waitForSelector("._7UhW9.PIoXz.qyrsm.KV-D4.uL8Hv")
+        // await page.click("._7UhW9.PIoXz.qyrsm.KV-D4.uL8Hv")     
 
-        await page.waitFor(1000)
+        // await page.waitFor(1000)
 
 
         //direct dm tab
@@ -35,9 +35,10 @@ let messageFile=process.argv[3];
         await page.click(".wpO6b.ZQScA")
 
         
-            // n number of users to add in group  
+            // n number of users to add in group 
+            let id=require(idtosendmsgFile) 
             await page.waitForSelector(".j_2Hd.uMkC7.M5V28")         
-            await page.type(".j_2Hd.uMkC7.M5V28","nikku_m",{delay:120})
+            await page.type(".j_2Hd.uMkC7.M5V28",id,{delay:120})
             await page.waitForSelector(".dCJp8")
             
             let btn=await page.$$(".dCJp8")
@@ -53,6 +54,7 @@ let messageFile=process.argv[3];
             let msg=require(messageFile)
             await page.waitForSelector(".Igw0E.IwRSH.eGOV_.vwCYk.ItkAi textarea")                
             await page.type(".Igw0E.IwRSH.eGOV_.vwCYk.ItkAi textarea",msg,{delay:400})
+            await page.waitFor(300)
             await page.keyboard.press("Enter")
             await page.waitFor(1000) 
        
